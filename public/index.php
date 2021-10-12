@@ -11,8 +11,7 @@ $url = $_SERVER["REQUEST_URI"];
 // Переменные
 $title = "";
 $template = "";
-$image = "";
-
+$context = [];
 // Заполняем значение переменных
 if ($url == "/") {
     $title = "Главная";
@@ -20,14 +19,16 @@ if ($url == "/") {
 } elseif (preg_match("#/aang#", $url)) {
     $title = "Аанг";
     $template = "base_image.twig";
-    $image = "/img/aang.jpg"; 
+     
+    $context['image'] = "/img/aang.jpg"; 
 } elseif (preg_match("#/korra#", $url)) {
     $title = "Корра";
     $template = "base_image.twig"; 
     $image = "/img/korra.jpg"; 
+
+    $context['image'] = "/img/korra.jpg";
 }
 
-echo $twig->render($template, [
-    "title" => $title,
-    "image" => $image, // передаю
-]);
+$context['title'] = $title;
+
+echo $twig->render($template, $context);
