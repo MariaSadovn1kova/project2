@@ -1,19 +1,32 @@
 <?php
-// подключаем пакеты которые установили через composer
+// Подключаем пакеты которые установили через composer
 require_once '../vendor/autoload.php';
 
-// создаем загрузчик шаблонов, и указываем папку с шаблонами
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
-// создаем собственно экземпляр Twig с помощью которого будет рендерить
+// Создаем экземпляр twig
 $twig = new \Twig\Environment($loader);
 
-$url = $_SERVER["REQUEST_URI"];
+// Переменные
+$title = "";
+$template = "";
+$image = "";
 
+// Заполняем значение переменных
 if ($url == "/") {
-    echo $twig->render("main.html");
+    $title = "Главная";
+    $template = "main.twig";
 } elseif (preg_match("#/aang#", $url)) {
-    echo $twig->render("aang.html");
+    $title = "Аанг";
+    $template = "base_image.twig";
+    $image = "/img/aang.jpg"; 
 } elseif (preg_match("#/korra#", $url)) {
-    echo $twig->render("korra.html");
+    $title = "Корра";
+    $template = "base_image.twig"; 
+    $image = "/img/korra.jpg"; 
 }
+
+echo $twig->render($template, [
+    "title" => $title,
+    "image" => $image, // передаю
+]);
