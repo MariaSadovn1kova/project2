@@ -6,6 +6,7 @@ $loader = new \Twig\Loader\FilesystemLoader('../views');
 
 // Создаем экземпляр twig
 $twig = new \Twig\Environment($loader);
+$url = $_SERVER["REQUEST_URI"];
 
 // Переменные
 $title = "";
